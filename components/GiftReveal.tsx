@@ -19,6 +19,7 @@ export default function GiftReveal() {
     if (opened) return;
     setOpened(true);
     sessionStorage.setItem("vivansh-opened", "1");
+    window.dispatchEvent(new CustomEvent("vivansh-gift-opened"));
     setTimeout(() => setBurst(true), 500);
     setTimeout(() => setShouldRender(false), 2300);
   };
