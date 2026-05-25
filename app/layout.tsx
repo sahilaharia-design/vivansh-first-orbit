@@ -41,18 +41,27 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://vivansh.vercel.app"),
   title: "Vivansh's First Orbit",
   description:
-    "A first-birthday digital gift from mama to Vivansh — one year around the sun, a lifetime of worlds ahead.",
+    "One year around the sun. A lifetime of worlds ahead. A first-birthday gift from Sahil Mama & Sakshi Mami.",
   openGraph: {
     title: "Vivansh's First Orbit",
-    description: "One year around the sun. A lifetime of worlds ahead.",
-    images: [{ url: "/images/hero-first-orbit.png", width: 1200, height: 630 }],
+    description:
+      "One year around the sun. A lifetime of worlds ahead. A first-birthday gift from Sahil Mama & Sakshi Mami.",
+    images: [
+      {
+        url: "/images/social-preview.png",
+        width: 1731,
+        height: 909,
+        alt: "Vivansh's First Orbit — a first birthday gift from Sahil Mama & Sakshi Mami",
+      },
+    ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Vivansh's First Orbit",
-    description: "One year around the sun. A lifetime of worlds ahead.",
-    images: ["/images/hero-first-orbit.png"],
+    description:
+      "One year around the sun. A lifetime of worlds ahead. A first-birthday gift from Sahil Mama & Sakshi Mami.",
+    images: ["/images/social-preview.png"],
   },
 };
 
@@ -66,6 +75,9 @@ export default function RootLayout({
       lang="en"
       className={`${playfair.variable} ${inter.variable} ${devanagari.variable} ${gujarati.variable}`}
     >
+      <head>
+        <meta name="theme-color" content="#0B1026" />
+      </head>
       <body>
         <LanguageProvider>{children}</LanguageProvider>
       </body>

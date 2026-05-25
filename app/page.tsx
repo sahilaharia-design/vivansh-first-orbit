@@ -1,5 +1,5 @@
 import Hero from "@/components/Hero";
-import MamaLetter from "@/components/MamaLetter";
+import NotesSection from "@/components/NotesSection";
 import WorldBornInto from "@/components/WorldBornInto";
 import WorldsSection from "@/components/WorldsSection";
 import BlessingsSection from "@/components/BlessingsSection";
@@ -11,7 +11,7 @@ export default function Home() {
     <main>
       <ClientOnlyOverlays />
       <Hero />
-      <MamaLetter />
+      <NotesSection />
       <WorldBornInto />
       <WorldsSection />
       <BlessingsSection />

@@ -11,7 +11,7 @@ const ScrollProgress = dynamic(() => import("@/components/ScrollProgress"), {
 const GiftReveal = dynamic(() => import("@/components/GiftReveal"), {
   ssr: false,
 });
-const AudioPlayer = dynamic(() => import("@/components/AudioPlayer"), {
+const MusicToggle = dynamic(() => import("@/components/MusicToggle"), {
   ssr: false,
 });
 
@@ -19,7 +19,7 @@ export default function ClientOnlyOverlays() {
   return (
     <>
       <GiftReveal />
-      <AudioPlayer />
+      <MusicToggle />
       <CustomCursor />
       <ScrollProgress />
     </>

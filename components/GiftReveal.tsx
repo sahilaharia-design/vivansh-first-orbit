@@ -3,8 +3,12 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import StarField from "@/components/StarField";
+import { useLang } from "@/components/LanguageContext";
+import { translations } from "@/data/translations";
 
 export default function GiftReveal() {
+  const { lang } = useLang();
+  const label = translations[lang].hero.label;
   const [shouldRender, setShouldRender] = useState(false);
   const [opened, setOpened] = useState(false);
   const [burst, setBurst] = useState(false);
@@ -19,7 +23,6 @@ export default function GiftReveal() {
     if (opened) return;
     setOpened(true);
     sessionStorage.setItem("vivansh-opened", "1");
-    window.dispatchEvent(new CustomEvent("vivansh-gift-opened"));
     setTimeout(() => setBurst(true), 500);
     setTimeout(() => setShouldRender(false), 2300);
   };
@@ -238,7 +241,7 @@ export default function GiftReveal() {
           transition={{ delay: 1.4, duration: 1 }}
           className="mt-5 text-[11px] italic text-white/25"
         >
-          A first-birthday gift from your mama.
+          {label}
         </motion.p>
       </div>
 

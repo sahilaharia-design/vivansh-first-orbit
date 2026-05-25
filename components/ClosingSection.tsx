@@ -82,7 +82,7 @@ export default function ClosingSection() {
             <div className="h-px flex-1 bg-[#D9A441]/20" />
           </div>
           <p className="text-base italic text-white/40">{t.signature}</p>
-          <p className="mt-2 font-serif text-5xl font-bold text-[#D9A441] md:text-6xl">{t.from}</p>
+          <p className="mt-2 font-serif text-3xl font-bold text-[#D9A441] md:text-4xl">{t.from}</p>
 
           {/* Moon glyph */}
           <div className="mt-10 text-5xl opacity-25" aria-hidden="true">🌙</div>
