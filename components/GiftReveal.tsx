@@ -19,179 +19,182 @@ export default function GiftReveal() {
     if (opened) return;
     setOpened(true);
     sessionStorage.setItem("vivansh-opened", "1");
-    setTimeout(() => setBurst(true), 550);
-    setTimeout(() => setShouldRender(false), 2000);
+    setTimeout(() => setBurst(true), 500);
+    setTimeout(() => setShouldRender(false), 2300);
   };
 
   if (!shouldRender) return null;
 
   return (
     <motion.div
-      animate={opened ? { opacity: 0, scale: 1.04 } : { opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8, delay: opened ? 1.1 : 0, ease: [0.22, 1, 0.36, 1] }}
+      animate={opened ? { opacity: 0, scale: 1.06 } : { opacity: 1, scale: 1 }}
+      transition={{ duration: 0.9, delay: opened ? 1.3 : 0, ease: [0.22, 1, 0.36, 1] }}
       className="fixed inset-0 z-[9990] flex flex-col items-center justify-center overflow-hidden bg-[#0B1026]"
     >
       <StarField count={90} />
 
-      {/* Radial ambient glow */}
+      {/* Ambient centre glow */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 50% at 50% 55%, rgba(217,164,65,0.07) 0%, transparent 70%)",
+            "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(217,164,65,0.08) 0%, transparent 70%)",
         }}
       />
 
-      {/* Light burst on open */}
+      {/* Gold light burst on open */}
       {burst && (
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 7, opacity: [0, 0.55, 0] }}
-          transition={{ duration: 1.3, ease: "easeOut" }}
-          className="pointer-events-none absolute z-10 h-48 w-48 rounded-full"
+          animate={{ scale: 9, opacity: [0, 0.65, 0] }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="pointer-events-none absolute z-10 h-44 w-44 rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(243,182,141,0.7) 0%, rgba(217,164,65,0.4) 40%, transparent 70%)",
+              "radial-gradient(circle, rgba(243,182,141,0.8) 0%, rgba(217,164,65,0.5) 40%, transparent 70%)",
           }}
         />
       )}
 
-      {/* Content */}
+      {/* ── Content column ── */}
       <div className="relative z-20 flex flex-col items-center px-6 text-center">
+
         {/* Eyebrow */}
         <motion.p
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.8 }}
-          className="mb-5 text-[11px] font-semibold uppercase tracking-[0.35em] text-[#D9A441]/60"
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="text-[11px] font-semibold uppercase tracking-[0.35em] text-[#D9A441]/60"
         >
           For Vivansh · 27 May 2026
         </motion.p>
 
-        {/* Main heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-14 font-serif text-4xl font-bold leading-tight text-[#FFF4DF] sm:text-5xl md:text-6xl"
-        >
-          Your first gift
-          <br />
-          <span className="text-[#D9A441]">is waiting.</span>
-        </motion.h1>
-
-        {/* Envelope */}
+        {/* ── Envelope ──
+            Strategy: a container with top-padding reserves space for the
+            upward-pointing flap so it never overlaps text outside the box.
+            The heading lives BELOW this block — no collision possible.        */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.88, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mb-14"
+          initial={{ opacity: 0, y: 36, scale: 0.88 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 0.55, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          className="relative mt-10 mb-10"
         >
-          {/* Float wrapper */}
+          {/* Idle float */}
           <motion.div
-            animate={opened ? {} : { y: [0, -10, 0] }}
+            animate={opened ? {} : { y: [0, -12, 0] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
           >
-            {/* Envelope */}
-            <div style={{ perspective: "800px" }} className="relative">
-              {/* Body */}
-              <div className="relative h-[160px] w-[260px] overflow-hidden rounded-b-2xl border border-[#D9A441]/30 bg-gradient-to-b from-[#16203a] to-[#0c1428] sm:h-[190px] sm:w-[310px]">
-                {/* Inner glow when open */}
+            {/*
+              pt-[88px] / pt-[108px] = reserved headroom for the flap.
+              Flap is absolute top:0 inside here, body follows after padding.
+            */}
+            <div
+              className="relative pt-[88px] sm:pt-[108px]"
+              style={{ perspective: "900px" }}
+            >
+              {/* Flap */}
+              <motion.div
+                animate={opened ? { rotateX: -168 } : { rotateX: 0 }}
+                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+                style={{
+                  transformOrigin: "bottom center",
+                  transformStyle: "preserve-3d",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                }}
+              >
+                {/* Mobile flap */}
+                <svg
+                  width="100%"
+                  height="88"
+                  viewBox="0 0 300 88"
+                  preserveAspectRatio="none"
+                  className="sm:hidden"
+                >
+                  <polygon
+                    points="0,0 300,0 150,88"
+                    fill="#131d38"
+                    stroke="#D9A441"
+                    strokeWidth="0.9"
+                    strokeOpacity="0.45"
+                  />
+                </svg>
+                {/* Desktop flap */}
+                <svg
+                  width="100%"
+                  height="108"
+                  viewBox="0 0 380 108"
+                  preserveAspectRatio="none"
+                  className="hidden sm:block"
+                >
+                  <polygon
+                    points="0,0 380,0 190,108"
+                    fill="#131d38"
+                    stroke="#D9A441"
+                    strokeWidth="0.9"
+                    strokeOpacity="0.45"
+                  />
+                </svg>
+              </motion.div>
+
+              {/* Envelope body */}
+              <div className="relative h-[170px] w-[300px] overflow-hidden rounded-b-2xl border border-[#D9A441]/30 bg-gradient-to-b from-[#131d38] to-[#0c1428] sm:h-[210px] sm:w-[380px]">
+                {/* Inner warm glow when opened */}
                 {opened && (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.6 }}
                     className="absolute inset-0"
                     style={{
                       background:
-                        "radial-gradient(ellipse at 50% 80%, rgba(243,182,141,0.25) 0%, rgba(217,164,65,0.1) 50%, transparent 80%)",
+                        "radial-gradient(ellipse at 50% 100%, rgba(243,182,141,0.32) 0%, rgba(217,164,65,0.14) 50%, transparent 80%)",
                     }}
                   />
                 )}
 
-                {/* V-fold lines */}
-                <div className="absolute inset-0 opacity-15" aria-hidden="true">
-                  <svg
-                    width="100%"
-                    height="100%"
-                    viewBox="0 0 260 160"
-                    preserveAspectRatio="none"
-                  >
-                    <line x1="0" y1="0" x2="130" y2="80" stroke="#D9A441" strokeWidth="1" />
-                    <line x1="260" y1="0" x2="130" y2="80" stroke="#D9A441" strokeWidth="1" />
+                {/* V-fold crease lines */}
+                <div className="absolute inset-0 opacity-[0.18]" aria-hidden="true">
+                  <svg width="100%" height="100%" viewBox="0 0 300 170" preserveAspectRatio="none">
+                    <line x1="0"   y1="0" x2="150" y2="85" stroke="#D9A441" strokeWidth="1" />
+                    <line x1="300" y1="0" x2="150" y2="85" stroke="#D9A441" strokeWidth="1" />
                   </svg>
                 </div>
 
-                {/* Moon inside */}
-                <div className="absolute inset-0 flex items-center justify-center pt-6">
+                {/* Moon — faint at rest, bright on open */}
+                <div className="absolute inset-0 flex items-center justify-center">
                   <motion.span
-                    initial={{ opacity: 0.15, scale: 0.8 }}
-                    animate={opened ? { opacity: 1, scale: 1.2 } : { opacity: 0.15, scale: 0.8 }}
-                    transition={{ duration: 0.5 }}
+                    animate={opened ? { opacity: 1, scale: 1.35 } : { opacity: 0.18, scale: 0.8 }}
+                    transition={{ duration: 0.6 }}
                     className="text-5xl sm:text-6xl"
                     aria-hidden="true"
                   >
                     🌙
                   </motion.span>
                 </div>
-              </div>
 
-              {/* Flap — animates open on click */}
-              <motion.div
-                animate={opened ? { rotateX: -165 } : { rotateX: 0 }}
-                transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                style={{ transformOrigin: "bottom center", transformStyle: "preserve-3d" }}
-                className="absolute -top-[79px] left-0 w-[260px] sm:-top-[95px] sm:w-[310px]"
-              >
-                <svg
-                  width="100%"
-                  height="80"
-                  viewBox="0 0 260 80"
-                  preserveAspectRatio="none"
-                  className="sm:hidden"
-                >
-                  <polygon
-                    points="0,0 260,0 130,80"
-                    fill="#16203a"
-                    stroke="#D9A441"
-                    strokeWidth="0.8"
-                    strokeOpacity="0.4"
-                  />
-                </svg>
-                <svg
-                  width="100%"
-                  height="96"
-                  viewBox="0 0 310 96"
-                  preserveAspectRatio="none"
-                  className="hidden sm:block"
-                >
-                  <polygon
-                    points="0,0 310,0 155,96"
-                    fill="#16203a"
-                    stroke="#D9A441"
-                    strokeWidth="0.8"
-                    strokeOpacity="0.4"
-                  />
-                </svg>
-              </motion.div>
+                {/* Gold bottom edge */}
+                <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#D9A441]/35 to-transparent" />
+              </div>
             </div>
 
-            {/* Sparkle stars */}
+            {/* Sparkle stars around envelope */}
             {[
-              { top: "-24%", left: "5%", delay: 0 },
-              { top: "-10%", left: "90%", delay: 0.5 },
-              { top: "50%", left: "-12%", delay: 1.0 },
-              { top: "80%", left: "95%", delay: 0.3 },
-              { top: "110%", left: "20%", delay: 0.8 },
-              { top: "110%", left: "70%", delay: 0.2 },
+              { top: "18%", left: "-9%",  delay: 0   },
+              { top:  "5%", left: "94%",  delay: 0.6 },
+              { top: "60%", left: "-11%", delay: 1.1 },
+              { top: "80%", left: "97%",  delay: 0.2 },
+              { top: "106%", left: "14%", delay: 0.8 },
+              { top: "108%", left: "76%", delay: 0.4 },
             ].map((pos, i) => (
               <motion.span
                 key={i}
-                className="pointer-events-none absolute text-[#D9A441]/50 text-sm"
+                className="pointer-events-none absolute text-sm text-[#D9A441]/50"
                 style={{ top: pos.top, left: pos.left }}
-                animate={{ opacity: [0.2, 0.9, 0.2], scale: [0.8, 1.3, 0.8] }}
-                transition={{ duration: 2.5 + i * 0.3, repeat: Infinity, delay: pos.delay }}
+                animate={{ opacity: [0.2, 1, 0.2], scale: [0.8, 1.5, 0.8] }}
+                transition={{ duration: 2.4 + i * 0.4, repeat: Infinity, delay: pos.delay }}
                 aria-hidden="true"
               >
                 ✦
@@ -200,20 +203,30 @@ export default function GiftReveal() {
           </motion.div>
         </motion.div>
 
-        {/* CTA Button */}
+        {/* Heading — lives BELOW the envelope, flap can't reach it */}
+        <motion.h1
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.85, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-8 font-serif text-3xl font-bold leading-snug text-[#FFF4DF] sm:text-4xl md:text-5xl"
+        >
+          Your first gift
+          <br />
+          <span className="text-[#D9A441]">is waiting.</span>
+        </motion.h1>
+
+        {/* CTA */}
         <motion.button
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0, duration: 0.8 }}
+          transition={{ delay: 1.1, duration: 0.8 }}
           onClick={handleOpen}
           disabled={opened}
-          className="group inline-flex min-h-[54px] items-center gap-3 rounded-full border border-[#D9A441]/40 bg-[#D9A441]/10 px-10 py-4 text-base font-medium text-[#D9A441] transition-all duration-300 hover:bg-[#D9A441]/25 hover:shadow-[0_0_48px_rgba(217,164,65,0.4)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9A441] disabled:cursor-not-allowed disabled:opacity-60"
+          className="group inline-flex min-h-[54px] items-center gap-3 rounded-full border border-[#D9A441]/45 bg-[#D9A441]/10 px-10 py-4 text-base font-medium text-[#D9A441] transition-all duration-300 hover:bg-[#D9A441]/25 hover:shadow-[0_0_50px_rgba(217,164,65,0.45)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9A441] disabled:cursor-not-allowed disabled:opacity-60"
         >
           <span>{opened ? "Opening…" : "Open your gift"}</span>
           {!opened && (
-            <span className="transition-transform duration-300 group-hover:translate-x-1">
-              →
-            </span>
+            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
           )}
         </motion.button>
 
@@ -221,15 +234,15 @@ export default function GiftReveal() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.3, duration: 1 }}
-          className="mt-6 text-[11px] italic text-white/25"
+          transition={{ delay: 1.4, duration: 1 }}
+          className="mt-5 text-[11px] italic text-white/25"
         >
           A first-birthday gift from your mama.
         </motion.p>
       </div>
 
-      {/* Bottom orbit ring hints */}
-      {[320, 480].map((r, i) => (
+      {/* Background orbit rings */}
+      {[320, 500].map((r, i) => (
         <div
           key={r}
           className="pointer-events-none absolute rounded-full border border-[#D9A441]/8"
@@ -240,7 +253,7 @@ export default function GiftReveal() {
             left: "50%",
             marginTop: -r / 2,
             marginLeft: -r / 2,
-            animation: `orbitSpin ${22 + i * 12}s linear infinite`,
+            animation: `orbitSpin ${24 + i * 14}s linear infinite`,
             animationDirection: i % 2 === 0 ? "normal" : "reverse",
           }}
           aria-hidden="true"
