@@ -48,20 +48,22 @@ export const metadata: Metadata = {
       "One year around the sun. A lifetime of worlds ahead. A first-birthday gift from Sahil Mama & Sakshi Mami.",
     images: [
       {
-        url: "/images/social-preview.png",
+        url: "/images/social-preview.jpg",
         width: 1731,
         height: 909,
         alt: "Vivansh's First Orbit — a first birthday gift from Sahil Mama & Sakshi Mami",
+        type: "image/jpeg",
       },
     ],
     type: "website",
+    url: "https://vivansh.vercel.app",
   },
   twitter: {
     card: "summary_large_image",
     title: "Vivansh's First Orbit",
     description:
       "One year around the sun. A lifetime of worlds ahead. A first-birthday gift from Sahil Mama & Sakshi Mami.",
-    images: ["/images/social-preview.png"],
+    images: ["/images/social-preview.jpg"],
   },
 };
 
