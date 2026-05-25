@@ -1,26 +1,77 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-sans, 'Inter', system-ui, sans-serif);
+  --font-serif: var(--font-serif, 'Playfair Display', Georgia, serif);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --midnight: #0B1026;
+  --deep-blue: #121B3A;
+  --cream: #FFF4DF;
+  --ivory: #FAEED8;
+  --gold: #D9A441;
+  --soft-peach: #F3B68D;
+  --warm-brown: #8A5A32;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--midnight);
+  color: white;
+  font-family: var(--font-sans), 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Hide default cursor on desktop only */
+@media (pointer: fine) {
+  body { cursor: none; }
+}
+
+/* Indic font helpers */
+.font-devanagari {
+  font-family: var(--font-devanagari), 'Noto Sans Devanagari', sans-serif;
+  line-height: 1.9;
+}
+
+.font-gujarati {
+  font-family: var(--font-gujarati), 'Noto Sans Gujarati', sans-serif;
+  line-height: 1.9;
+}
+
+/* Animations */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.3); }
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
